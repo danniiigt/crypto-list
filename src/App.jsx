@@ -46,7 +46,7 @@ const CurrencyBox = styled.select`
 
 `
 
-const App = ({}) =>{
+const App = () =>{
     //STATE
     const [currency, setCurrency] = useState({
         symbol: "$",
