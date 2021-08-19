@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
+import {generate as id} from "shortid"
 
 //STYLES
 const TableWrapper = styled.table`
@@ -62,6 +63,15 @@ const TableWrapper = styled.table`
             max-width: 16px;
             max-height: 16px;
             margin-right: 10px;
+
+            @media only screen and (min-width: 860px) {
+                max-width: 20px;
+                max-height: 20px;
+            }
+            @media only screen and (min-width: 1200px) {
+                max-width: 26px;
+                max-height: 26px;
+            }
         }
         span{
             margin-right: 10px;
@@ -142,18 +152,18 @@ const CryptoTable = ({currency, url}) =>{
                 </thead>
                 <tbody>
                     {cryptos.map((crypto, index) => (
-                        <tr className="coin-tr">
-                        <td>{index + 1}</td>
-                        <td className="coin">
+                        <tr className="coin-tr" key={id()}>
+                        <td key={id()}>{index + 1}</td>
+                        <td className="coin" key={id()}>
                             <img src={crypto.image} alt="" />
                             <span>{crypto.name}</span>
                             <span className="abreviature">{` ${(crypto.symbol).toUpperCase()}`}</span>
                         </td>
-                        <td className="last-child-1">{`${crypto.current_price}`}</td>
-                        <td className="others-td">{`${crypto.price_change_percentage_24h}%`}</td>
-                        <td className="others-td">{`${crypto.high_24h}`}</td>
-                        <td className="others-td">{`${crypto.low_24h}`}</td>
-                        <td className="others-td">{`${crypto.market_cap}`}</td>
+                        <td className="last-child-1" key={id()}>{`${crypto.current_price}`}</td>
+                        <td className="others-td" key={id()}>{`${crypto.price_change_percentage_24h}%`}</td>
+                        <td className="others-td" key={id()}>{`${crypto.high_24h}`}</td>
+                        <td className="others-td" key={id()}>{`${crypto.low_24h}`}</td>
+                        <td className="others-td" key={id()}>{`${crypto.market_cap}`}</td>
                     </tr>
                     ))}
                 </tbody>
