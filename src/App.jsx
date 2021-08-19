@@ -11,6 +11,10 @@ const ContentWrapper = styled.div`
     width: 100%;
     min-height: 100vh;
     padding: 15px;
+
+    @media only screen and (min-width: 860px) {
+        padding: 15px 20px;
+    }
 `
 
 const HeaderWrapper = styled.div`
@@ -31,6 +35,16 @@ const SearchBox = styled.input`
     &:focus{
         outline: none;
     }
+
+    @media only screen and (min-width: 860px) {
+        width: 79%;
+    }
+    @media only screen and (min-width: 1200px) {
+        width: 84.5%;
+    }
+    @media only screen and (min-width: 1600px) {
+        width: 89.5%;
+    }
 `
 const CurrencyBox = styled.select`
     width: 20%;
@@ -44,6 +58,12 @@ const CurrencyBox = styled.select`
         outline: none;
     }
 
+    @media only screen and (min-width: 1200px) {
+        width: 15%;
+    }
+    @media only screen and (min-width: 1600px) {
+        width: 10%;
+    }
 `
 
 const App = () =>{

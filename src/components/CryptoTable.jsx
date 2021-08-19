@@ -10,11 +10,20 @@ const TableWrapper = styled.table`
 
     .others-td{
         display: none;
+
+        @media only screen and (min-width: 860px) {
+            display: table-cell;
+            text-align: center;
+        }
     }
 
     td.last-child-1{
         text-align: right;
         padding-right: 5px;
+
+        @media only screen and (min-width: 860px) {
+            text-align: center;
+        }
     }
 
     td:first-child{
@@ -26,6 +35,10 @@ const TableWrapper = styled.table`
         td{
             border-bottom: 1.5px solid white;
             height: 47px;
+
+            @media only screen and (min-width: 860px) {
+                height: 52px;
+            }
         }
     }
 
@@ -33,6 +46,10 @@ const TableWrapper = styled.table`
         td{
             border-bottom: 1px solid #525252;
             height: 40px;
+
+            @media only screen and (min-width: 860px) {
+                height: 45px;
+            }
         }
     }
 
@@ -64,16 +81,52 @@ const CryptoTable = ({currency, url}) =>{
     const getCryptoData = async (url) =>{
         const response = await fetch(url)
         const data = await response.json()
+        formatNumbers(data)
+
         setCryptos(data)
     }
 
-    const changeCurrency = () =>{
-        console.log("change")
+    const formatNumbers = (data) =>{
+        console.log(data, "data12231");
+
+        if(data !== undefined){
+            if(currency.name === "eur"){
+                for (let index = 0; index < data.length; index++) {
+                    data[index].current_price = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].current_price))
+                    data[index].high_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].high_24h))
+                    data[index].low_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].low_24h))
+                    data[index].market_cap = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].market_cap))
+
+                }
+            } else if(currency.name === "usd"){
+                for (let index = 0; index < data.length; index++) {
+                    data[index].current_price = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].current_price))
+                    data[index].high_24h = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].high_24h))
+                    data[index].low_24h = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].low_24h))
+                    data[index].market_cap = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].market_cap))
+
+                }
+            } else if(currency.name === "jpy"){
+                for (let index = 0; index < data.length; index++) {
+                    data[index].current_price = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].current_price))
+                    data[index].high_24h = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].high_24h))
+                    data[index].low_24h = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].low_24h))
+                    data[index].market_cap = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].market_cap))
+                }
+            } else if(currency.name === "gbp"){
+                for (let index = 0; index < data.length; index++) {
+                    data[index].current_price = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].current_price))
+                    data[index].high_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].high_24h))
+                    data[index].low_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].low_24h))
+                    data[index].market_cap = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].market_cap))
+                }
+            }
+        }
     }
 
     useEffect(() => {
-        console.log("refresh");
         getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=50&page=1&sparkline=false`)
+        formatNumbers()
     }, [currency])
 
     return(
@@ -85,9 +138,12 @@ const CryptoTable = ({currency, url}) =>{
                         <td>Coin</td>
                         <td className="last-child-1">Price</td>
                         <td className="others-td">24H Change</td>
+                        <td className="others-td">24H High</td>
+                        <td className="others-td">24H LOW</td>
+                        <td className="others-td">Market Cap</td>
                     </tr>
                 </thead>
-                <tbody onChange={changeCurrency}>
+                <tbody>
                     {cryptos.map((crypto, index) => (
                         <tr className="coin-tr">
                         <td>{index + 1}</td>
@@ -96,8 +152,11 @@ const CryptoTable = ({currency, url}) =>{
                             <span>{crypto.name}</span>
                             <span className="abreviature">{` ${(crypto.symbol).toUpperCase()}`}</span>
                         </td>
-                        <td className="last-child-1">{`${crypto.current_price}${currency.symbol}`}</td>
-                        <td className="others-td">2,733$</td>
+                        <td className="last-child-1">{`${crypto.current_price}`}</td>
+                        <td className="others-td">{`${crypto.price_change_percentage_24h}%`}</td>
+                        <td className="others-td">{`${crypto.high_24h}`}</td>
+                        <td className="others-td">{`${crypto.low_24h}`}</td>
+                        <td className="others-td">{`${crypto.market_cap}`}</td>
                     </tr>
                     ))}
                 </tbody>
