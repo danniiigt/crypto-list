@@ -78,6 +78,7 @@ const CryptoTable = ({currency, url}) =>{
     const [cryptos, setCryptos] = useState([])
 
     //FUNCTIONS
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const getCryptoData = async (url) =>{
         const response = await fetch(url)
         const data = await response.json()
@@ -87,8 +88,6 @@ const CryptoTable = ({currency, url}) =>{
     }
 
     const formatNumbers = (data) =>{
-        console.log(data, "data12231");
-
         if(data !== undefined){
             if(currency.name === "eur"){
                 for (let index = 0; index < data.length; index++) {
@@ -126,8 +125,7 @@ const CryptoTable = ({currency, url}) =>{
 
     useEffect(() => {
         getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=50&page=1&sparkline=false`)
-        formatNumbers()
-    }, [currency])
+    }, [currency, getCryptoData])
 
     return(
         <>
