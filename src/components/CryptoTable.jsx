@@ -88,7 +88,6 @@ const CryptoTable = ({currency, url}) =>{
     const [cryptos, setCryptos] = useState([])
 
     //FUNCTIONS
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     const getCryptoData = async (url) =>{
         const response = await fetch(url)
         const data = await response.json()
