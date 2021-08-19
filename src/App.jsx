@@ -104,6 +104,9 @@ const App = () =>{
         }
     }
 
+    //PAGE TITLE
+    document.title = "Crypto App"
+
     return(
         <>
             <GlobalStyles />
