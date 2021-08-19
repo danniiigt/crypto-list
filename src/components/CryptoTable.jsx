@@ -83,7 +83,6 @@ const CryptoTable = ({currency, url}) =>{
         const response = await fetch(url)
         const data = await response.json()
         formatNumbers(data)
-
         setCryptos(data)
     }
 
@@ -97,7 +96,7 @@ const CryptoTable = ({currency, url}) =>{
                     data[index].market_cap = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].market_cap))
 
                 }
-            } else if(currency.name === "usd"){
+            } else if(currency.name === "USD" || currency.name === "usd"){
                 for (let index = 0; index < data.length; index++) {
                     data[index].current_price = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].current_price))
                     data[index].high_24h = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].high_24h))
@@ -125,7 +124,7 @@ const CryptoTable = ({currency, url}) =>{
 
     useEffect(() => {
         getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=50&page=1&sparkline=false`)
-    }, [currency, getCryptoData])
+    }, [currency])
 
     return(
         <>
