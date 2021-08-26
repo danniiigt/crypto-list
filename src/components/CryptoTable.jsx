@@ -152,18 +152,18 @@ const CryptoTable = ({currency, url}) =>{
                 <tbody>
                     {cryptos.map((crypto, index) => (
                         <tr className="coin-tr" key={id()}>
-                        <td key={id()}>{index + 1}</td>
-                        <td className="coin" key={id()}>
-                            <img src={crypto.image} alt="" />
-                            <span>{crypto.name}</span>
-                            <span className="abreviature">{` ${(crypto.symbol).toUpperCase()}`}</span>
-                        </td>
-                        <td className="last-child-1" key={id()}>{`${crypto.current_price}`}</td>
-                        <td className="others-td" key={id()}>{`${crypto.price_change_percentage_24h}%`}</td>
-                        <td className="others-td" key={id()}>{`${crypto.high_24h}`}</td>
-                        <td className="others-td" key={id()}>{`${crypto.low_24h}`}</td>
-                        <td className="others-td" key={id()}>{`${crypto.market_cap}`}</td>
-                    </tr>
+                            <td key={id()}>{index + 1}</td>
+                            <td className="coin" key={id()}>
+                                <img src={crypto.image} alt="" />
+                                <span>{crypto.name}</span>
+                                <span className="abreviature">{` ${(crypto.symbol).toUpperCase()}`}</span>
+                            </td>
+                            <td className="last-child-1" key={id()}>{`${crypto.current_price}`}</td>
+                            <td className="others-td" key={id()}>{`${crypto.price_change_percentage_24h}%`}</td>
+                            <td className="others-td" key={id()}>{`${crypto.high_24h}`}</td>
+                            <td className="others-td" key={id()}>{`${crypto.low_24h}`}</td>
+                            <td className="others-td" key={id()}>{`${crypto.market_cap}`}</td>
+                        </tr>
                     ))}
                 </tbody>
             </TableWrapper>
