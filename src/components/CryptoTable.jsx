@@ -32,6 +32,18 @@ const TableWrapper = styled.table`
         text-align: center;
     }
 
+    td.text-success{
+        color: #17be17;
+
+        &:before{
+            content: "+";
+        }
+    }
+
+    td.text-danger{
+        color: #ce1111;
+    }
+
     thead{
         td{
             border-bottom: 1.5px solid white;
@@ -103,6 +115,7 @@ const CryptoTable = ({currency, url}) =>{
                     data[index].high_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].high_24h))
                     data[index].low_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].low_24h))
                     data[index].market_cap = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].market_cap))
+                    data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
 
                 }
             } else if(currency.name === "USD" || currency.name === "usd"){
@@ -111,7 +124,7 @@ const CryptoTable = ({currency, url}) =>{
                     data[index].high_24h = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].high_24h))
                     data[index].low_24h = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].low_24h))
                     data[index].market_cap = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].market_cap))
-
+                    data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
                 }
             } else if(currency.name === "jpy"){
                 for (let index = 0; index < data.length; index++) {
@@ -119,6 +132,7 @@ const CryptoTable = ({currency, url}) =>{
                     data[index].high_24h = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].high_24h))
                     data[index].low_24h = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].low_24h))
                     data[index].market_cap = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].market_cap))
+                    data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
                 }
             } else if(currency.name === "gbp"){
                 for (let index = 0; index < data.length; index++) {
@@ -126,6 +140,7 @@ const CryptoTable = ({currency, url}) =>{
                     data[index].high_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].high_24h))
                     data[index].low_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].low_24h))
                     data[index].market_cap = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].market_cap))
+                    data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
                 }
             }
         }
@@ -159,7 +174,7 @@ const CryptoTable = ({currency, url}) =>{
                                 <span className="abreviature">{` ${(crypto.symbol).toUpperCase()}`}</span>
                             </td>
                             <td className="last-child-1" key={id()}>{`${crypto.current_price}`}</td>
-                            <td className="others-td" key={id()}>{`${crypto.price_change_percentage_24h}%`}</td>
+                            <td className={`${crypto.price_change_percentage_24h > 0 ? "text-success" : "text-danger"} others-td`} key={id()}>{`${crypto.price_change_percentage_24h}%`}</td>
                             <td className="others-td" key={id()}>{`${crypto.high_24h}`}</td>
                             <td className="others-td" key={id()}>{`${crypto.low_24h}`}</td>
                             <td className="others-td" key={id()}>{`${crypto.market_cap}`}</td>
