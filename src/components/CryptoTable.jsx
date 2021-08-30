@@ -147,9 +147,12 @@ const CryptoTable = ({currency, url}) =>{
     }
 
     useEffect(() => {
-        setInterval(() => {
+        const cryptoInterval = setInterval(() => {
+            console.log(`interval ${currency.name}`);
             getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=50&page=1&sparkline=false`)
-        }, 10000);
+        }, 8000);
+
+        return () => clearInterval(cryptoInterval)
     }, [currency])
 
     return(
