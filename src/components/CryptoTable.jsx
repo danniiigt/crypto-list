@@ -147,7 +147,9 @@ const CryptoTable = ({currency, url}) =>{
     }
 
     useEffect(() => {
-        getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=50&page=1&sparkline=false`)
+        setInterval(() => {
+            getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=50&page=1&sparkline=false`)
+        }, 10000);
     }, [currency])
 
     return(
