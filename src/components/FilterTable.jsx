@@ -10,15 +10,13 @@ const FilterBox = styled.div`
     height: 40vh;
     font-size: 0.9em;
     overflow-x: auto;
-    border-radius: 10px;
-    border: 1px solid #4d4d4d;
 
     &::-webkit-scrollbar{
-        width: 4px;
+        width: 3px;
     }
 
     &::-webkit-scrollbar-thumb{
-        background-color: white;
+        background-color: #3b3b3b;
         border-radius: 10px;
     }
 
