@@ -36,14 +36,12 @@ const ContentWrapper = styled.div`
         }
     }
 `
-
 const HeaderWrapper = styled.div`
     width: 100%;
     height: 40px;
     display: flex;
     justify-content: space-between;
 `
-
 const SearchBox = styled.input`
     width: 78%;
     height: 40px;
@@ -95,6 +93,7 @@ const App = () =>{
     
     //REFS
     const currencyRef = useRef()
+    const searchBoxRef = useRef()
 
     //FUNCTIONS
     const changeCurrency = () =>{
@@ -136,7 +135,7 @@ const App = () =>{
                 </div>
                 <div className="crypto-box">
                     <HeaderWrapper>
-                        <SearchBox placeholder="Search a Coin"/>
+                        <SearchBox placeholder="Search a Coin" ref={searchBoxRef}/>
                         <CurrencyBox ref={currencyRef} onChange={changeCurrency}>
                             <option value="">USD</option>
                             <option value="">EUR</option>
@@ -144,7 +143,7 @@ const App = () =>{
                             <option value="">GBP</option>
                         </CurrencyBox>
                     </HeaderWrapper>
-                    <CryptoTable currency={currency}/>
+                    <CryptoTable currency={currency} searchBox={searchBoxRef}/>
                 </div>
             </ContentWrapper>
         </>

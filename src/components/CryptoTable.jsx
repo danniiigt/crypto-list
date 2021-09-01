@@ -95,18 +95,11 @@ const TableWrapper = styled.table`
 
 `
 
-const CryptoTable = ({currency, url}) =>{
+const CryptoTable = ({currency, searchBox}) =>{
     //STATE
     const [cryptos, setCryptos] = useState([])
 
     //FUNCTIONS
-    const getCryptoData = async (url) =>{
-        const response = await fetch(url)
-        const data = await response.json()
-        formatNumbers(data)
-        setCryptos(data)
-    }
-
     const formatNumbers = (data) =>{
         if(data !== undefined){
             if(currency.name === "eur"){
@@ -145,16 +138,27 @@ const CryptoTable = ({currency, url}) =>{
             }
         }
     }
+    
+    const getCryptoData = async (url) =>{
+        const response = await fetch(url)
+        const data = await response.json()
+        formatNumbers(data)
 
-    getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=50&page=1&sparkline=false`)
+        if(searchBox.current.value !== ""){
+            const result = data.filter((crypto) => crypto.name.toLowerCase().includes(searchBox.current.value.toLowerCase()))
+            setCryptos(result)
+        } else{
+            setCryptos(data)
+        }
+    }
+
     useEffect(() => {
         const cryptoInterval = setInterval(() => {
-            console.log(`interval ${currency.name}`);
-            getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=50&page=1&sparkline=false`)
-        }, 8000);
+            getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=75&page=1&sparkline=false`)
+        }, 1500);
 
         return () => clearInterval(cryptoInterval)
-    }, [currency])
+    }, [currency])  
 
     return(
         <>
