@@ -145,7 +145,9 @@ const CryptoTable = ({currency, searchBox}) =>{
         formatNumbers(data)
 
         if(searchBox.current.value !== ""){
-            const result = data.filter((crypto) => crypto.name.toLowerCase().includes(searchBox.current.value.toLowerCase()))
+            const resultName = data.filter((crypto) => crypto.name.toLowerCase().includes(searchBox.current.value.toLowerCase()))
+            const resultSymbol = data.filter((crypto) => crypto.symbol.toLowerCase().includes(searchBox.current.value.toLowerCase()))
+            const result = resultName.concat(resultSymbol)
             setCryptos(result)
         } else{
             setCryptos(data)
