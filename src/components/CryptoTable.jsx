@@ -145,10 +145,20 @@ const CryptoTable = ({currency, searchBox}) =>{
         formatNumbers(data)
 
         if(searchBox.current.value !== ""){
+            const searchedCoins = []
+
             const resultName = data.filter((crypto) => crypto.name.toLowerCase().includes(searchBox.current.value.toLowerCase()))
             const resultSymbol = data.filter((crypto) => crypto.symbol.toLowerCase().includes(searchBox.current.value.toLowerCase()))
             const result = resultName.concat(resultSymbol)
-            setCryptos(result)
+
+            //REMOVES REPEATED COINS
+            result.forEach((item) => {
+                if(!searchedCoins.includes(item)) {
+                    searchedCoins.push(item)
+                }
+            })
+
+            setCryptos(searchedCoins)
         } else{
             setCryptos(data)
         }
