@@ -94,6 +94,7 @@ const IntroWrapper = styled.div`
     align-items: center;
     justify-content: center;
     background-color: rgb(40, 44, 52);
+    /* background-color: black; */
     position: absolute;
 
     &.disolve{
@@ -123,6 +124,12 @@ const IntroWrapper = styled.div`
             display: none;
         }
     }
+
+    h1{
+        &.not-visible{
+            color:rgb(40, 44, 52);
+        } 
+    }
 `
 
 const App = () =>{
@@ -139,6 +146,7 @@ const App = () =>{
     const searchBoxRef = useRef()
     const introImg = useRef()
     const introWrapper = useRef()
+    const introH1 = useRef()
 
     //FUNCTIONS
     const changeCurrency = () =>{
@@ -177,6 +185,27 @@ const App = () =>{
 
         setTimeout(() => {
             if(introImg.current){
+                introH1.current.classList.toggle("not-visible")
+            }
+        }, 1250);
+        setTimeout(() => {
+            if(introImg.current){
+                introH1.current.classList.toggle("not-visible")
+            }
+        }, 1330);
+        setTimeout(() => {
+            if(introImg.current){
+                introH1.current.classList.toggle("not-visible")
+            }
+        }, 1410);
+        setTimeout(() => {
+            if(introImg.current){
+                introH1.current.classList.toggle("not-visible")
+            }
+        }, 1490);
+
+        setTimeout(() => {
+            if(introImg.current){
                 introWrapper.current.classList.add("disolve")
             }
         }, 2250);
@@ -199,7 +228,7 @@ const App = () =>{
             {intro && (
                 <IntroWrapper ref={introWrapper}>
                     <img src={logo} alt="Logo" ref={introImg}/>
-                    <h1>Crypto App</h1>
+                    <h1 ref={introH1}>Crypto App</h1>
                 </IntroWrapper>
             )}
             <ContentWrapper>
