@@ -228,7 +228,7 @@ const CryptoTable = ({currency, searchBox}) =>{
             setCryptoCount(cryptoCount + amount)
         } else if(cryptoCount === 225 && amount > 25 && input == false){
             setCryptoCount(250)
-        } else if(amount >= 25 && amount < 250 && input == true){
+        } else if(amount >= 25 && amount <= 250 && input == true){
             setCryptoCount(amount)
         }
     }
