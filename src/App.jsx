@@ -1,5 +1,8 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import styled from 'styled-components';
+
+//IMAGES
+import logo from "./assets/images/logo.png"
 
 //COMPONENTS
 import CryptoTable from './components/CryptoTable';
@@ -83,6 +86,44 @@ const CurrencyBox = styled.select`
         width: 10%;
     }
 `
+const IntroWrapper = styled.div`
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(40, 44, 52);
+    position: absolute;
+
+    &.disolve{
+        animation: fadeOut 2s;
+    }
+
+    @keyframes fadeOut {
+        from {
+            opacity: 1;
+        }
+
+        to{
+            opacity: 0;
+        }
+    }
+
+    img{
+        margin-bottom: 20px;
+
+        &.rotate{
+            transform: rotate(360deg);
+            transition: all 2s ease-in-out;
+            scale: 1000px 1000px;
+        }
+
+        &.not-visible{
+            display: none;
+        }
+    }
+`
 
 const App = () =>{
     //STATE
@@ -90,10 +131,14 @@ const App = () =>{
         symbol: "$",
         name: "USD"
     })
+
+    const [intro, setIntro] = useState(true)
     
     //REFS
     const currencyRef = useRef()
     const searchBoxRef = useRef()
+    const introImg = useRef()
+    const introWrapper = useRef()
 
     //FUNCTIONS
     const changeCurrency = () =>{
@@ -123,12 +168,40 @@ const App = () =>{
         }
     }
 
+    const closeIntro = () =>{
+        setTimeout(() => {
+            if(introImg.current){
+                introImg.current.classList.add("rotate")
+            }
+        }, 250);
+
+        setTimeout(() => {
+            if(introImg.current){
+                introWrapper.current.classList.add("disolve")
+            }
+        }, 2250);
+        
+        setTimeout(() => {
+            setIntro(false)
+        }, 4250);
+    }
+
+    useEffect(() => {
+        closeIntro()
+    }, []);
+
     //PAGE TITLE
     document.title = "Crypto App"
 
     return(
         <>
             <GlobalStyles />
+            {intro && (
+                <IntroWrapper ref={introWrapper}>
+                    <img src={logo} alt="Logo" ref={introImg}/>
+                    <h1>Crypto App</h1>
+                </IntroWrapper>
+            )}
             <ContentWrapper>
                 <div className="filter-box">
                     <FilterTable />
