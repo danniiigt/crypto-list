@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import {generate as id} from "shortid"
 
@@ -95,9 +95,57 @@ const TableWrapper = styled.table`
 
 `
 
+const TableFooter = styled.div`
+    width: 100%;
+    height: 50px;
+    background-color: #282c34;
+    display: flex;
+    justify-content: flex-end;
+
+    .cryptos-qtty{
+        display: flex;
+        align-items: center;
+        margin-right: 5px;
+        
+        input{
+            min-height: 32px;
+            min-width: 200px;
+            background-color: #282c34;
+            border: 2px solid #161616;
+            color: #c7c7c7;
+            padding-left: 5px;
+
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+
+    .add-cryptos-box{
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 4px;
+
+        button{
+            color: #c7c7c7;
+            background-color: #282c34;
+            border: 2px solid #161616;
+            min-width: 51px;
+            min-height: 32px;
+            margin-right: 5px;
+        }
+    }
+`
+
 const CryptoTable = ({currency, searchBox}) =>{
     //STATE
     const [cryptos, setCryptos] = useState([])
+    const [cryptoCount, setCryptoCount] = useState(75)
+
+    //REFS
+    const countRef = useRef()
 
     //FUNCTIONS
     const formatNumbers = (data) =>{
@@ -164,13 +212,23 @@ const CryptoTable = ({currency, searchBox}) =>{
         }
     }
 
+    const incrementCryptoCount = (amount, input) =>{
+        if(cryptoCount + amount >= 25 && cryptoCount + amount < 250 && input == false){
+            setCryptoCount(cryptoCount + amount)
+        } else if(cryptoCount === 225 && amount > 25 && input == false){
+            setCryptoCount(250)
+        } else if(amount >= 25 && amount < 250 && input == true){
+            setCryptoCount(amount)
+        }
+    }
+
     useEffect(() => {
         const cryptoInterval = setInterval(() => {
-            getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=75&page=1&sparkline=false`)
+            getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=${cryptoCount}&page=1&sparkline=false`)
         }, 1500);
 
         return () => clearInterval(cryptoInterval)
-    }, [currency])  
+    }, [currency, cryptoCount])  
 
     return(
         <>
@@ -204,6 +262,22 @@ const CryptoTable = ({currency, searchBox}) =>{
                     ))}
                 </tbody>
             </TableWrapper>
+            <TableFooter>
+                <div className="cryptos-qtty">
+                    <input 
+                        type="number" 
+                        placeholder={`Number of cryptos (${cryptoCount})`} 
+                        min="1" 
+                        max="250" 
+                        ref={countRef}
+                        onChange={() => incrementCryptoCount(parseInt(countRef.current.value), true)}
+                    />
+                </div>
+                <div className="add-cryptos-box">
+                    <button onClick={() => incrementCryptoCount(-50, false)}>-50</button>
+                    <button onClick={() => incrementCryptoCount(50, false)}>+50</button>
+                </div>
+            </TableFooter>
         </>
     )
 }
