@@ -83,8 +83,8 @@ const TableWrapper = styled.table`
         padding-left: 5px;
 
         img{
-            max-width: 16px;
-            max-height: 16px;
+            max-width: 22px;
+            max-height: 22px;
             margin-right: 10px;
 
             @media only screen and (min-width: 860px) {
