@@ -22,6 +22,15 @@ const TableWrapper = styled.table`
         text-align: right;
         padding-right: 5px;
 
+        span{
+            display: block;
+            font-size: 0.8em;
+
+            @media only screen and (min-width: 860px) {
+                display: none;
+            }
+        }
+
         @media only screen and (min-width: 860px) {
             text-align: center;
         }
@@ -32,7 +41,8 @@ const TableWrapper = styled.table`
         text-align: center;
     }
 
-    td.text-success{
+    td.text-success,
+    span.text-success{
         color: #17be17;
 
         &:before{
@@ -40,7 +50,8 @@ const TableWrapper = styled.table`
         }
     }
 
-    td.text-danger{
+    td.text-danger,
+    span.text-danger{
         color: #ce1111;
     }
 
@@ -58,7 +69,7 @@ const TableWrapper = styled.table`
     tbody{
         td{
             border-bottom: 1px solid #525252;
-            height: 40px;
+            height: 52px;
 
             @media only screen and (min-width: 860px) {
                 height: 45px;
@@ -253,8 +264,15 @@ const CryptoTable = ({currency, searchBox}) =>{
                                 <span>{crypto.name}</span>
                                 <span className="abreviature">{` ${(crypto.symbol).toUpperCase()}`}</span>
                             </td>
-                            <td className="last-child-1" key={id()}>{`${crypto.current_price}`}</td>
-                            <td className={`${crypto.price_change_percentage_24h > 0 ? "text-success" : "text-danger"} others-td`} key={id()}>{`${crypto.price_change_percentage_24h}%`}</td>
+                            <td className="last-child-1" key={id()}>{`${crypto.current_price}`}
+                                <span className={`${crypto.price_change_percentage_24h > 0 ? "text-success" : "text-danger"} others-td`}>
+                                    {`${crypto.price_change_percentage_24h}%`}
+                                </span>
+                            </td>
+                            <td 
+                                className={`${crypto.price_change_percentage_24h > 0 ? "text-success" : "text-danger"} others-td`} 
+                                key={id()}>{`${crypto.price_change_percentage_24h}%`}
+                            </td>
                             <td className="others-td" key={id()}>{`${crypto.high_24h}`}</td>
                             <td className="others-td" key={id()}>{`${crypto.low_24h}`}</td>
                             <td className="others-td" key={id()}>{`${crypto.market_cap}`}</td>
