@@ -1,13 +1,14 @@
 import React, {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import {generate as id} from "shortid"
+import { useHistory } from 'react-router';
 
 //STYLES
 const TableWrapper = styled.table`
-    margin-top: 10px;
-    background-color: #282c34;
+    margin-top: ${({noMarginTop}) => noMarginTop ? "0" : "10px"};
     width: 100%;
     font-weight: lighter;
+    background-color: ${({color}) => color ? "#131722" : "#282c34"};
 
     .others-td{
         display: none;
@@ -69,7 +70,9 @@ const TableWrapper = styled.table`
     tbody{
         td{
             border-bottom: 1px solid #525252;
-            height: 52px;
+            /* height: 52px; */
+
+            height: ${({tiny}) => tiny ? "52px" : "42px"};
 
             @media only screen and (min-width: 860px) {
                 height: 45px;
@@ -81,6 +84,7 @@ const TableWrapper = styled.table`
         display: flex;
         align-items: center;
         padding-left: 5px;
+        padding-left: ${({noEnumeration}) => noEnumeration ? "10px" : "0"};
 
         img{
             max-width: 22px;
@@ -150,7 +154,7 @@ const TableFooter = styled.div`
     }
 `
 
-const CryptoTable = ({currency, searchBox}) =>{
+const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter, color, noEnumeration, noMarginTop}) =>{
     //STATE
     const [cryptos, setCryptos] = useState([])
     const [cryptoCount, setCryptoCount] = useState(75)
@@ -160,39 +164,41 @@ const CryptoTable = ({currency, searchBox}) =>{
 
     //FUNCTIONS
     const formatNumbers = (data) =>{
-        if(data !== undefined){
-            if(currency.name === "eur"){
-                for (let index = 0; index < data.length; index++) {
-                    data[index].current_price = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].current_price))
-                    data[index].high_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].high_24h))
-                    data[index].low_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].low_24h))
-                    data[index].market_cap = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].market_cap))
-                    data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
-
-                }
-            } else if(currency.name === "USD" || currency.name === "usd"){
-                for (let index = 0; index < data.length; index++) {
-                    data[index].current_price = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].current_price))
-                    data[index].high_24h = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].high_24h))
-                    data[index].low_24h = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].low_24h))
-                    data[index].market_cap = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].market_cap))
-                    data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
-                }
-            } else if(currency.name === "jpy"){
-                for (let index = 0; index < data.length; index++) {
-                    data[index].current_price = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].current_price))
-                    data[index].high_24h = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].high_24h))
-                    data[index].low_24h = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].low_24h))
-                    data[index].market_cap = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].market_cap))
-                    data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
-                }
-            } else if(currency.name === "gbp"){
-                for (let index = 0; index < data.length; index++) {
-                    data[index].current_price = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].current_price))
-                    data[index].high_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].high_24h))
-                    data[index].low_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].low_24h))
-                    data[index].market_cap = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].market_cap))
-                    data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
+        if(currency && cryptoCount){
+            if(data !== undefined){
+                if(currency.name === "eur"){
+                    for (let index = 0; index < data.length; index++) {
+                        data[index].current_price = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].current_price))
+                        data[index].high_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].high_24h))
+                        data[index].low_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].low_24h))
+                        data[index].market_cap = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(data[index].market_cap))
+                        data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
+    
+                    }
+                } else if(currency.name === "USD" || currency.name === "usd"){
+                    for (let index = 0; index < data.length; index++) {
+                        data[index].current_price = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].current_price))
+                        data[index].high_24h = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].high_24h))
+                        data[index].low_24h = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].low_24h))
+                        data[index].market_cap = (new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(data[index].market_cap))
+                        data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
+                    }
+                } else if(currency.name === "jpy"){
+                    for (let index = 0; index < data.length; index++) {
+                        data[index].current_price = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].current_price))
+                        data[index].high_24h = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].high_24h))
+                        data[index].low_24h = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].low_24h))
+                        data[index].market_cap = (new Intl.NumberFormat('ja-JP', { style: 'currency', currency: 'JPY' }).format(data[index].market_cap))
+                        data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
+                    }
+                } else if(currency.name === "gbp"){
+                    for (let index = 0; index < data.length; index++) {
+                        data[index].current_price = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].current_price))
+                        data[index].high_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].high_24h))
+                        data[index].low_24h = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].low_24h))
+                        data[index].market_cap = (new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'GBP' }).format(data[index].market_cap))
+                        data[index].price_change_percentage_24h = data[index].price_change_percentage_24h.toFixed(2)
+                    }
                 }
             }
         }
@@ -203,21 +209,25 @@ const CryptoTable = ({currency, searchBox}) =>{
         const data = await response.json()
         formatNumbers(data)
 
-        if(searchBox.current.value !== ""){
-            const searchedCoins = []
-
-            const resultName = data.filter((crypto) => crypto.name.toLowerCase().includes(searchBox.current.value.toLowerCase()))
-            const resultSymbol = data.filter((crypto) => crypto.symbol.toLowerCase().includes(searchBox.current.value.toLowerCase()))
-            const result = resultName.concat(resultSymbol)
-
-            //REMOVES REPEATED COINS
-            result.forEach((item) => {
-                if(!searchedCoins.includes(item)) {
-                    searchedCoins.push(item)
-                }
-            })
-
-            setCryptos(searchedCoins)
+        if(searchBox){
+            if(searchBox.current.value !== ""){
+                const searchedCoins = []
+    
+                const resultName = data.filter((crypto) => crypto.name.toLowerCase().includes(searchBox.current.value.toLowerCase()))
+                const resultSymbol = data.filter((crypto) => crypto.symbol.toLowerCase().includes(searchBox.current.value.toLowerCase()))
+                const result = resultName.concat(resultSymbol)
+    
+                //REMOVES REPEATED COINS
+                result.forEach((item) => {
+                    if(!searchedCoins.includes(item)) {
+                        searchedCoins.push(item)
+                    }
+                })
+    
+                setCryptos(searchedCoins)
+            } else{
+                setCryptos(data)
+            }
         } else{
             setCryptos(data)
         }
@@ -233,18 +243,24 @@ const CryptoTable = ({currency, searchBox}) =>{
         }
     }
 
-    useEffect(() => {
-        const cryptoInterval = setInterval(() => {
-            getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=${cryptoCount}&page=1&sparkline=false`)
-        }, 1500);
+    const cryptoLink = (cryptoName) =>{
+        history.push(`/chart/${cryptoName.toLowerCase()}`)
+    }
 
+    useEffect(() => {const cryptoInterval = setInterval(() => {
+            if(currency && cryptoCount){
+                getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=${cryptoCount}&page=1&sparkline=false`)
+            }
+        }, 1500);
         return () => clearInterval(cryptoInterval)
     }, [currency, cryptoCount])  
 
+
     return(
         <>
-            <TableWrapper>
-                <thead>
+            <TableWrapper tiny={tiny} color={color} noEnumeration={noEnumeration} noMarginTop={noMarginTop}>
+                {!noHeader && (
+                    <thead>
                     <tr className="header-tr">
                         <td>#</td>
                         <td>Coin</td>
@@ -255,10 +271,13 @@ const CryptoTable = ({currency, searchBox}) =>{
                         <td className="others-td">Market Cap</td>
                     </tr>
                 </thead>
+                )}
                 <tbody>
                     {cryptos.map((crypto, index) => (
-                        <tr className="coin-tr" key={id()}>
-                            <td key={id()}>{index + 1}</td>
+                        <tr className="coin-tr" key={id()} onClick={() => cryptoLink(crypto.name)}>
+                            {!noEnumeration && (
+                                <td key={id()}>{index + 1}</td>
+                            )}
                             <td className="coin" key={id()}>
                                 <img src={crypto.image} alt="" />
                                 <span>{crypto.name}</span>
@@ -280,22 +299,24 @@ const CryptoTable = ({currency, searchBox}) =>{
                     ))}
                 </tbody>
             </TableWrapper>
-            <TableFooter>
-                <div className="cryptos-qtty">
-                    <input 
-                        type="number" 
-                        placeholder={`Number of cryptos (${cryptoCount})`} 
-                        min="1" 
-                        max="250" 
-                        ref={countRef}
-                        onChange={() => incrementCryptoCount(parseInt(countRef.current.value), true)}
-                    />
-                </div>
-                <div className="add-cryptos-box">
-                    <button onClick={() => incrementCryptoCount(-50, false)}>-50</button>
-                    <button onClick={() => incrementCryptoCount(50, false)}>+50</button>
-                </div>
-            </TableFooter>
+            {tableFooter && (
+                <TableFooter>
+                    <div className="cryptos-qtty">
+                        <input 
+                            type="number" 
+                            placeholder={`Number of cryptos (${cryptoCount})`} 
+                            min="1" 
+                            max="250" 
+                            ref={countRef}
+                            onChange={() => incrementCryptoCount(parseInt(countRef.current.value), true)}
+                        />
+                    </div>
+                    <div className="add-cryptos-box">
+                        <button onClick={() => incrementCryptoCount(-50, false)}>-50</button>
+                        <button onClick={() => incrementCryptoCount(50, false)}>+50</button>
+                    </div>
+                </TableFooter>
+            )}
         </>
     )
 }
