@@ -30,14 +30,18 @@ const TableWrapper = styled.table`
             transition: all 2s ease-in-out;
             text-align: center;
             width: fit-content;
-            background-color: #0000009e;
+            background-color: #47484b;
             font-size: 1em;
             font-weight: lighter;
             padding: 0 10px;
             margin-top: -2px;
+            width: 100px;
 
             &.up{
-                margin-top: -24px;
+                margin-top: -25px;
+                background-color: #282c34;
+                border: 1px solid #47484b;
+                border-bottom: none;
             }
         }
     }
@@ -274,7 +278,9 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
     }
 
     const changeContract = () =>{
-        setIsContract(!isContrat)
+        setTimeout(() => {
+            setIsContract(!isContrat)
+        }, 1500);
     }
 
     useEffect(() => {const cryptoInterval = setInterval(() => {
@@ -305,10 +311,10 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
                 {contract && (
                     <div className="contract-btn">
                         {!isContrat && (
-                            <h1 className="down" onClick={changeContract}>🢛</h1>
+                            <h1 className="down" onClick={changeContract}>CONTRACT</h1>
                         )}
                         {isContrat && (
-                            <h1 className="up" onClick={changeContract}>🢙</h1>
+                            <h1 className="up" onClick={changeContract}>EXPAND</h1>
                         )}
                     </div>
                 )}
