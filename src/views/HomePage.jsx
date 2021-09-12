@@ -132,7 +132,7 @@ const IntroWrapper = styled.div`
     }
 `
 
-const HomePage = ({history}) =>{
+const HomePage = ({history, location}) =>{
     //STATE
     const [currency, setCurrency] = useState({
         symbol: "$",
@@ -245,7 +245,7 @@ const HomePage = ({history}) =>{
                             <option value="">GBP</option>
                         </CurrencyBox>
                     </HeaderWrapper>
-                    <CryptoTable currency={currency} searchBox={searchBoxRef} history={history} tiny={true} tableFooter={true}/>
+                    <CryptoTable currency={currency} searchBox={searchBoxRef} history={history} tiny={true} tableFooter={true} location={location}/>
                 </div>
             </ContentWrapper>
         </>

@@ -154,7 +154,7 @@ const TableFooter = styled.div`
     }
 `
 
-const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter, color, noEnumeration, noMarginTop}) =>{
+const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter, color, noEnumeration, noMarginTop, location}) =>{
     //STATE
     const [cryptos, setCryptos] = useState([])
     const [cryptoCount, setCryptoCount] = useState(75)
@@ -243,8 +243,10 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
         }
     }
 
-    const cryptoLink = (cryptoName) =>{
-        history.push(`/chart/${cryptoName.toLowerCase()}`)
+    const cryptoLink = (cryptoName, cryptoID) =>{
+        if(location.pathname != `/chart/${cryptoName.toLowerCase()}`){
+            history.push(`/chart/${cryptoName.toLowerCase()}`, {cryptoID: cryptoID})
+        }
     }
 
     useEffect(() => {const cryptoInterval = setInterval(() => {
@@ -274,7 +276,7 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
                 )}
                 <tbody>
                     {cryptos.map((crypto, index) => (
-                        <tr className="coin-tr" key={id()} onClick={() => cryptoLink(crypto.name)}>
+                        <tr className="coin-tr" key={id()} onClick={() => cryptoLink(crypto.name, crypto.id)}>
                             {!noEnumeration && (
                                 <td key={id()}>{index + 1}</td>
                             )}

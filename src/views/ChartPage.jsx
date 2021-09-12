@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 //COMPONENTS
 import CryptoTable from '../components/CryptoTable';
+import CryptoPercentChange from '../components/CryptoPercentChange';
 
 //STYLES
 const ChartWrapper = styled.div`
@@ -24,9 +25,10 @@ const CryptoInfoWrapper = styled.div`
     width: 100%;
     display: block;
     background-color: #282c34;
+    padding-top: 20px;
 `
 
-const ChartPage = () =>{
+const ChartPage = ({history, location}) =>{
     return(
         <>
             <ChartWrapper />
@@ -36,9 +38,13 @@ const ChartPage = () =>{
                     noHeader tiny={false} 
                     noEnumeration
                     noMarginTop
+                    location={location}
+                    history={history}
                 />
             </CryptoTableWrapper>
-            <CryptoInfoWrapper></CryptoInfoWrapper>
+            <CryptoInfoWrapper>
+                <CryptoPercentChange location={location}/>
+            </CryptoInfoWrapper>
         </>
     )
 }
