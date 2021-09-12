@@ -19,6 +19,29 @@ const TableWrapper = styled.table`
         }
     }
 
+    .contract-btn{
+        position: absolute;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: center;
+
+        h1{
+            transition: all 2s ease-in-out;
+            text-align: center;
+            width: fit-content;
+            background-color: #0000009e;
+            font-size: 1em;
+            font-weight: lighter;
+            padding: 0 10px;
+            margin-top: -2px;
+
+            &.up{
+                margin-top: -24px;
+            }
+        }
+    }
+
     td.last-child-1{
         text-align: right;
         padding-right: 5px;
@@ -154,10 +177,11 @@ const TableFooter = styled.div`
     }
 `
 
-const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter, color, noEnumeration, noMarginTop, location}) =>{
+const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter, color, noEnumeration, noMarginTop, location, contract}) =>{
     //STATE
     const [cryptos, setCryptos] = useState([])
     const [cryptoCount, setCryptoCount] = useState(75)
+    const [isContrat, setIsContract] = useState(false)
 
     //REFS
     const countRef = useRef()
@@ -245,8 +269,12 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
 
     const cryptoLink = (cryptoName, cryptoID) =>{
         if(location.pathname != `/chart/${cryptoName.toLowerCase()}`){
-            history.push(`/chart/${cryptoName.toLowerCase()}`, {cryptoID: cryptoID})
+            history.push(`/chart/${cryptoName.toLowerCase()}`, {cryptoID, cryptoName})
         }
+    }
+
+    const changeContract = () =>{
+        setIsContract(!isContrat)
     }
 
     useEffect(() => {const cryptoInterval = setInterval(() => {
@@ -260,7 +288,7 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
 
     return(
         <>
-            <TableWrapper tiny={tiny} color={color} noEnumeration={noEnumeration} noMarginTop={noMarginTop}>
+            <TableWrapper tiny={tiny} color={color} noEnumeration={noEnumeration} noMarginTop={noMarginTop} contract={contract}>
                 {!noHeader && (
                     <thead>
                     <tr className="header-tr">
@@ -273,6 +301,16 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
                         <td className="others-td">Market Cap</td>
                     </tr>
                 </thead>
+                )}
+                {contract && (
+                    <div className="contract-btn">
+                        {!isContrat && (
+                            <h1 className="down" onClick={changeContract}>🢛</h1>
+                        )}
+                        {isContrat && (
+                            <h1 className="up" onClick={changeContract}>🢙</h1>
+                        )}
+                    </div>
                 )}
                 <tbody>
                     {cryptos.map((crypto, index) => (
