@@ -10,7 +10,7 @@ const ForecastWrapper = styled.div`
 
     .forecast{
         display: ${({isPredicted}) => !isPredicted ? "flex" : "none"};
-
+        justify-content: space-between;
     }
 
     .forecast-percentage{
@@ -104,9 +104,13 @@ const Forecast = ({location}) =>{
         <>
             <ForecastWrapper isPredicted={isPredicted} predictionData={predictionData}>
                 <div className="forecast">
-                    <h1>What is your forecast for {location.state.cryptoName}?</h1>
-                    <button className="buy" onClick={showForecast}>BUY</button>
-                    <button className="sell" onClick={showForecast}>SELL</button>
+                    <div className="header">
+                        <h1>What is your forecast for {location.state.cryptoName}?</h1>
+                    </div>
+                    <div className="buttons">
+                        <button className="buy" onClick={showForecast}>BUY</button>
+                        <button className="sell" onClick={showForecast}>SELL</button>
+                    </div>
                 </div>
                 <div className="forecast-percentage">
                     <div className="forecast-bar">
