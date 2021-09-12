@@ -19,6 +19,10 @@ const TableWrapper = styled.table`
         }
     }
 
+    tr.selected{
+        background-color: #30363a;
+    }
+
     .contract-btn{
         position: absolute;
         left: 0;
@@ -181,7 +185,7 @@ const TableFooter = styled.div`
     }
 `
 
-const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter, color, noEnumeration, noMarginTop, location, contract}) =>{
+const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter, color, noEnumeration, noMarginTop, location, contract, cryptoSelected}) =>{
     //STATE
     const [cryptos, setCryptos] = useState([])
     const [cryptoCount, setCryptoCount] = useState(75)
@@ -320,7 +324,7 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
                 )}
                 <tbody>
                     {cryptos.map((crypto, index) => (
-                        <tr className="coin-tr" key={id()} onClick={() => cryptoLink(crypto.name, crypto.id)}>
+                        <tr key={id()} onClick={() => cryptoLink(crypto.name, crypto.id)} className={`${cryptoSelected === crypto.name ? "selected" : ""} coin-tr`}>
                             {!noEnumeration && (
                                 <td key={id()}>{index + 1}</td>
                             )}

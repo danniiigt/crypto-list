@@ -62,6 +62,7 @@ const ChartPage = ({history, location}) =>{
                     location={location}
                     history={history}
                     contract
+                    cryptoSelected={location.state.cryptoName}
                 />
             </CryptoTableWrapper>
             <CryptoInfoWrapper>
