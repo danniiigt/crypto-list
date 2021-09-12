@@ -220,7 +220,7 @@ const HomePage = ({history, location}) =>{
     }, []);
 
     //PAGE TITLE
-    document.title = "HOME | Crypto App"
+    document.title = "Home - Crypto App"
 
     return(
         <>

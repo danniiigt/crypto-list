@@ -40,7 +40,7 @@ const ChartPage = ({history, location}) =>{
     //REFS
     const TableWrapper = useRef()
 
-
+    //FUNCTIONS
     const handleContract = (e) =>{
         console.dir(e.className)
         if(e.className === "down"){
@@ -50,6 +50,8 @@ const ChartPage = ({history, location}) =>{
         }
     }
 
+    //PAGE
+    document.title = `${location.state.cryptoName} - Crypto App`
     return(
         <>
             <ChartWrapper />
