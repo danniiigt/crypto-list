@@ -61,7 +61,7 @@ const CryptoInfo = ({location}) =>{
                             <h1>{crypto.name}</h1>
                         </div>
                         <div className="crypto-price">
-                            <h1>{crypto.market_data.current_price.usd}$</h1>
+                            <h1>{crypto.market_data.current_price.usd.toFixed(2)}$</h1>
                         </div>
                     </div>
                 )}
