@@ -2,11 +2,12 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 
 const CryptoInfoWrapper = styled.div`
-    padding: 0 18px;
-    padding-bottom: 10px;
     border-bottom: 1px solid #47484b;
+    width: 100%;
 
     .crypto-name{
+        padding: 0 18px;
+        padding-bottom: 10px;
         display: flex;
         align-items: center;
         justify-content: space-between;

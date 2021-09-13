@@ -2,11 +2,11 @@ import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 
 const ForecastWrapper = styled.div`
-    margin-bottom: 20px;
     padding: 0 18px;
     min-height: 25px;
     height: fit-content;
-    margin-top: 20px;
+    margin: 25px 0;
+    width: 100%;
 
     .forecast{
         display: ${({isPredicted}) => !isPredicted ? "flex" : "none"};
@@ -105,7 +105,7 @@ const Forecast = ({location}) =>{
             <ForecastWrapper isPredicted={isPredicted} predictionData={predictionData}>
                 <div className="forecast">
                     <div className="header">
-                        <h1>What is your forecast for {location.state.cryptoName}?</h1>
+                        <h1>Predictions on {location.state.cryptoName}?</h1>
                     </div>
                     <div className="buttons">
                         <button className="buy" onClick={showForecast}>BUY</button>

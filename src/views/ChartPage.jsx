@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
 import styled from 'styled-components';
 
 //COMPONENTS
@@ -6,6 +6,7 @@ import CryptoTable from '../components/CryptoTable';
 import CryptoPercentChange from '../components/CryptoPercentChange';
 import Forecast from '../components/Forecast';
 import CryptoInfo from '../components/CryptoInfo';
+import CryptoStats from '../components/CryptoStats';
 
 //STYLES
 const ChartWrapper = styled.div`
@@ -31,7 +32,9 @@ const CryptoTableWrapper = styled.div`
 const CryptoInfoWrapper = styled.div`
     min-height: 500px;
     width: 100%;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: #282c34;
     padding-top: 10px;
 `
@@ -70,6 +73,7 @@ const ChartPage = ({history, location}) =>{
             <CryptoInfoWrapper>
                 <CryptoInfo location={location}/>
                 <Forecast location={location}/>
+                <CryptoStats location={location}/>
                 <CryptoPercentChange location={location}/>
             </CryptoInfoWrapper>
         </>
