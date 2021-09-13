@@ -19,6 +19,14 @@ const TableWrapper = styled.table`
         }
     }
 
+    tr{
+        cursor: pointer;
+
+        &:hover{
+            background-color: #30363a;
+        }
+    }
+
     tr.selected{
         background-color: #30363a;
     }
