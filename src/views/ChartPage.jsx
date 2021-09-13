@@ -7,6 +7,7 @@ import CryptoPercentChange from '../components/CryptoPercentChange';
 import Forecast from '../components/Forecast';
 import CryptoInfo from '../components/CryptoInfo';
 import CryptoStats from '../components/CryptoStats';
+import { Link } from 'react-router-dom';
 
 //STYLES
 const ChartWrapper = styled.div`
@@ -39,6 +40,20 @@ const CryptoInfoWrapper = styled.div`
     padding-top: 10px;
 `
 
+const BackHome = styled.div`
+    height: 30px;
+    padding: 0 20px;
+    background-color: #282c34;
+    border-radius: 0 0 25px 25px;
+    display: flex;
+    justify-content: flex-end;
+`
+
+const StyledLink = styled(Link)`
+    color: #cccccc;
+    margin-top: 3px;
+`
+
 const ChartPage = ({history, location}) =>{
     //REFS
     const TableWrapper = useRef()
@@ -57,6 +72,9 @@ const ChartPage = ({history, location}) =>{
     document.title = `${location.state.cryptoName} - Crypto App`
     return(
         <>
+            <BackHome>
+                <StyledLink to="/">← go back home</StyledLink>
+            </BackHome>
             <ChartWrapper />
             <CryptoTableWrapper onClick={(e) => handleContract(e.target)} ref={TableWrapper}>
                 <CryptoTable 
