@@ -116,7 +116,7 @@ const IntroWrapper = styled.div`
 
         &.rotate{
             transform: rotate(360deg);
-            transition: all 2s ease-in-out;
+            transition: all 1s ease-in-out;
             scale: 1000px 1000px;
         }
 

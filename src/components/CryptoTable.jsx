@@ -39,7 +39,7 @@ const TableWrapper = styled.table`
         justify-content: center;
 
         h1{
-            transition: all 2s ease-in-out;
+            transition: all  ease-in-out;
             text-align: center;
             width: fit-content;
             background-color: #47484b;
@@ -292,7 +292,7 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
     const changeContract = () =>{
         setTimeout(() => {
             setIsContract(!isContrat)
-        }, 1500);
+        }, 750);
     }
 
     useEffect(() => {const cryptoInterval = setInterval(() => {

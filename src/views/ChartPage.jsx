@@ -21,7 +21,7 @@ const CryptoTableWrapper = styled.div`
     height: 270px;
     background-color: #282c34;
     border-bottom: 5px solid #47484b;
-    transition: all 2s ease-in-out;
+    transition: all 1s ease-in-out;
 
     &.hide{
         height: 0;
