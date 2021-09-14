@@ -8,10 +8,11 @@ import Forecast from '../components/Forecast';
 import CryptoInfo from '../components/CryptoInfo';
 import CryptoStats from '../components/CryptoStats';
 import { Link } from 'react-router-dom';
+import Chart from '../components/Chart';
 
 //STYLES
 const ChartWrapper = styled.div`
-    min-height: 225px;
+    min-height: 193px;
     width: 100%;
     display: block;
     border-bottom: 5px solid #47484b;
@@ -72,10 +73,12 @@ const ChartPage = ({history, location}) =>{
     document.title = `${location.state.cryptoName} - Crypto App`
     return(
         <>
-            <BackHome>
-                <StyledLink to="/">← go back home</StyledLink>
-            </BackHome>
-            <ChartWrapper />
+            {/* <BackHome> */}
+                {/* <StyledLink to="/">← go back home</StyledLink> */}
+            {/* </BackHome> */}
+            <ChartWrapper>
+                <Chart location={location}/>
+            </ChartWrapper>
             <CryptoTableWrapper onClick={(e) => handleContract(e.target)} ref={TableWrapper}>
                 <CryptoTable 
                     currency={{symbol: "$",name: "USD"}} 
