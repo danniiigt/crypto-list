@@ -7,6 +7,9 @@ const ChartWrapper = styled.div`
     height: 220px;
     background-color: #282c34;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `
 
 const Chart = ({location}) => {
