@@ -17,6 +17,21 @@ const ChartWrapper = styled.div`
     }
 `
 
+const ChartLegend = styled.div`
+    position: absolute;
+    top: 0;
+    padding: 0px 5px;
+    background-color: #3c414d;
+    width: 100%;
+    border-radius: 0 0 100px 100px;
+
+    h1{
+        font-size: 0.8em;
+        font-weight: lighter;
+        text-align: center;
+    }
+`
+
 const Chart = ({location}) => {
 
     const [days, setDays] = useState([])
@@ -27,7 +42,7 @@ const Chart = ({location}) => {
         labels: days,
         datasets: [
             {
-                label: location.state.cryptoName,
+                label: `${location.state.cryptoName} - 30 Days`,
                 fill: false,
                 tension: 0.4,
                 borderWidth: 2,
@@ -88,6 +103,11 @@ const Chart = ({location}) => {
             <ChartWrapper>
                 {chartLoading && (
                     <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Loader.gif" alt="Loading" />
+                )}
+                {!chartLoading && (
+                    <ChartLegend>
+                        <h1> {location.state.cryptoName} - Last 30 days </h1>
+                    </ChartLegend>
                 )}
                 {!chartLoading && (
                     <Line

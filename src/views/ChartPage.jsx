@@ -9,6 +9,7 @@ import CryptoInfo from '../components/CryptoInfo';
 import CryptoStats from '../components/CryptoStats';
 import { Link } from 'react-router-dom';
 import Chart from '../components/Chart';
+import CryptoLinks from '../components/CryptoLinks';
 // import Intro from '../components/Intro';
 
 //STYLES
@@ -96,6 +97,7 @@ const ChartPage = ({history, location}) =>{
                 <Forecast location={location}/>
                 <CryptoStats location={location}/>
                 <CryptoPercentChange location={location}/>
+                <CryptoLinks location={location}/>
             </CryptoInfoWrapper>
         </>
     )

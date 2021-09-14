@@ -4,13 +4,13 @@ import styled from 'styled-components';
 const PercentWrapper = styled.div`
     width: 100%;
     height: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 15px;
 
     .row-1,
     .row-2{
         display: flex;
         justify-content: center;
-        padding: 0 16px;
+        padding: 0 18px;
 
         .change-item{
             margin-right: 11px;
@@ -20,7 +20,6 @@ const PercentWrapper = styled.div`
 
     .row-1{
         margin-bottom: 11px;
-        padding: 0 18px;
     }
 
     .row-2{
@@ -111,6 +110,10 @@ const CryptoPercentChange = ({location}) =>{
                             <div className={`${cryptos.market_data.price_change_percentage_30d > 0 ? "positive" : "negative"} change-item`}>
                                 <p>1 M</p>
                                 <h1>{cryptos.market_data.price_change_percentage_30d.toFixed(2)}%</h1>
+                            </div>
+                            <div className={`${cryptos.market_data.price_change_percentage_30d > 0 ? "positive" : "negative"} change-item`}>
+                                <p>2 M</p>
+                                <h1>{cryptos.market_data.price_change_percentage_60d.toFixed(2)}%</h1>
                             </div>
                             <div className={`${cryptos.market_data.price_change_percentage_1y > 0 ? "positive" : "negative"} change-item right`}>
                                 <p>1 YEAR</p>
