@@ -198,7 +198,6 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
     const [cryptos, setCryptos] = useState([])
     const [cryptoCount, setCryptoCount] = useState(75)
     const [isContract, setIsContract] = useState(false)
-    const [intro, setIntro] = useState(true)
 
     //REFS
     const countRef = useRef()
@@ -290,13 +289,6 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
         }
     }
 
-    const endIntro = () =>{
-        setIntro(true)
-        setTimeout(() => {
-            setIntro(false)
-        }, 3000);
-    }
-
     const changeContract = () =>{
         setTimeout(() => {
             setIsContract(!isContract)
@@ -304,7 +296,6 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
     }
 
     useEffect(() => {
-        endIntro()
         const cryptoInterval = setInterval(() => {
             if(currency && cryptoCount){
                 getCryptoData(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}&order=market_cap_desc&per_page=${cryptoCount}&page=1&sparkline=false`)
@@ -330,7 +321,7 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
                     </tr>
                 </thead>
                 )}
-                {contract && !intro && (
+                {contract && (
                     <div className="contract-btn">
                         {!isContract && (
                             <h1 className="down" onClick={changeContract}>CONTRACT</h1>
