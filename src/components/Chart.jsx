@@ -4,7 +4,7 @@ import { Line } from "react-chartjs-2"
 
 const ChartWrapper = styled.div`
     width: 100%;
-    height: 193px;
+    height: 205px;
     background-color: #282c34;
     padding: 10px;
 `

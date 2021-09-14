@@ -12,7 +12,7 @@ import Chart from '../components/Chart';
 
 //STYLES
 const ChartWrapper = styled.div`
-    min-height: 193px;
+    min-height: 205px;
     width: 100%;
     display: block;
     border-bottom: 5px solid #47484b;
