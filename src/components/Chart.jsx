@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import styled, { withTheme } from 'styled-components';
 import { Line } from "react-chartjs-2"
 
 const ChartWrapper = styled.div`
@@ -10,12 +10,18 @@ const ChartWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    img{
+        max-width: 100px;
+        max-height: 100px;
+    }
 `
 
 const Chart = ({location}) => {
 
     const [days, setDays] = useState([])
     const [prices, setPrices] = useState([])
+    const [chartLoading, setChartLoading] = useState(true)
 
     const state = {
         labels: days,
@@ -23,13 +29,16 @@ const Chart = ({location}) => {
             {
                 label: location.state.cryptoName,
                 fill: false,
-                tension: 0,
-                backgroundColor: '#a7a7a7',
-                borderColor: '#a7a7a7',
+                tension: 0.4,
                 borderWidth: 2,
-                pointBorderWidth: 0,
+                borderColor: '#1d1f25',
+                backgroundColor: '#3c414dac',
+                pointBorderColor: '#1d1f25',
+                pointBorderWidth: 1,
+                pointBorderWidth: 1,
+                pointRadius: 3.5,
                 data: prices,
-                pointRadius: 2.2,
+                fill: true,
             }
         ]
     }
@@ -62,32 +71,45 @@ const Chart = ({location}) => {
         setPrices(pricesData)
     }
 
+    const changeChartLoading = () =>{
+        setChartLoading(true)
+        setTimeout(() => {
+            setChartLoading(false)
+        }, 1500);
+    }
+
     useEffect(() => {
         getCryptoData()
+        changeChartLoading()
     }, [location]);
 
     return (
         <>
             <ChartWrapper>
-                <Line
-                    data={state}
-                    options={{
-                        title: {
-                            display: true,
-                            text: 'Average Rainfall per month',
-                            fontSize: 20
-                        },
-                        legend: {
-                            display: true,
-                            position: 'right'
-                        },
-                        plugins: {
+                {chartLoading && (
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Loader.gif" alt="Loading" />
+                )}
+                {!chartLoading && (
+                    <Line
+                        data={state}
+                        options={{
+                            title: {
+                                display: true,
+                                text: 'Average Rainfall per month',
+                                fontSize: 20
+                            },
                             legend: {
-                                display: false,
-                            }
-                        },
-                    }}
-                />
+                                display: true,
+                                position: 'right'
+                            },
+                            plugins: {
+                                legend: {
+                                    display: false,
+                                }
+                            },
+                        }}
+                    />
+                )}
             </ChartWrapper>
         </>
     )
