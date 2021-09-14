@@ -10,6 +10,8 @@ const ChartWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-top: 15px;
+    padding-bottom: 5px;
 
     img{
         max-width: 100px;
