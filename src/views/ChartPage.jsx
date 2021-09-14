@@ -9,7 +9,7 @@ import CryptoInfo from '../components/CryptoInfo';
 import CryptoStats from '../components/CryptoStats';
 import { Link } from 'react-router-dom';
 import Chart from '../components/Chart';
-import Intro from '../components/Intro';
+// import Intro from '../components/Intro';
 
 //STYLES
 const ChartWrapper = styled.div`
@@ -57,9 +57,6 @@ const StyledLink = styled(Link)`
 `
 
 const ChartPage = ({history, location}) =>{
-    //USESTATE
-    const [crypto, setCrypto] = useState(false)
-
     //REFS
     const TableWrapper = useRef()
 
@@ -73,24 +70,10 @@ const ChartPage = ({history, location}) =>{
         }
     }
 
-    const getCryptoImg = async () =>{
-        const res = await fetch(`https://api.coingecko.com/api/v3/coins/${location.state.cryptoID}`)
-        const data = await res.json()
-        setCrypto(data)
-    }
-
-    //USEEFFECT
-    useEffect(() => {
-        getCryptoImg()
-    }, [location]);
-
     //PAGE TITLE
     document.title = `${location.state.cryptoName} - Crypto App`
     return(
         <>  
-            {crypto && (
-                <Intro location={location} cryptoImg={crypto.image.large} cryptoName={crypto.name}/>
-            )}
             {/* <BackHome> */}
                 {/* <StyledLink to="/">← go back home</StyledLink> */}
             {/* </BackHome> */}
