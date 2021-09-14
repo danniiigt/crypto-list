@@ -62,7 +62,6 @@ const ChartPage = ({history, location}) =>{
 
     //FUNCTIONS
     const handleContract = (e) =>{
-        console.dir(e.className)
         if(e.className === "down"){
             TableWrapper.current.classList.add("hide")
         } else if(e.className === "up"){
