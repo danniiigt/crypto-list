@@ -111,7 +111,7 @@ const CryptoPercentChange = ({location}) =>{
                                 <p>1 M</p>
                                 <h1>{cryptos.market_data.price_change_percentage_30d.toFixed(2)}%</h1>
                             </div>
-                            <div className={`${cryptos.market_data.price_change_percentage_30d > 0 ? "positive" : "negative"} change-item`}>
+                            <div className={`${cryptos.market_data.price_change_percentage_60d > 0 ? "positive" : "negative"} change-item`}>
                                 <p>2 M</p>
                                 <h1>{cryptos.market_data.price_change_percentage_60d.toFixed(2)}%</h1>
                             </div>
