@@ -2,7 +2,7 @@ import React, {useState, useRef, useEffect} from 'react';
 import styled from 'styled-components';
 
 //IMAGES
-import logo from "../assets/images/logo.png"
+import logo2 from "../assets/images/logo2.png"
 
 //COMPONENTS
 import CryptoTable from '../components/CryptoTable';
@@ -227,8 +227,8 @@ const HomePage = ({history, location}) =>{
             <GlobalStyles />
             {intro && (
                 <IntroWrapper ref={introWrapper}>
-                    <img src={logo} alt="Logo" ref={introImg}/>
-                    <h1 ref={introH1}>Crypto App</h1>
+                    <img src={logo2} alt="Logo" ref={introImg}/>
+                    <h1 ref={introH1}>Crypto List</h1>
                 </IntroWrapper>
             )}
             <ContentWrapper>

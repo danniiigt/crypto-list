@@ -56,50 +56,9 @@ const Intro = ({cryptoImg, cryptoName, location}) =>{
     const introImg = useRef()
     const introWrapper = useRef()
 
-    //FUNCTIONS
-    const closeIntro = () =>{
-        setTimeout(() => {
-            if(introImg.current){
-                introImg.current.classList.add("rotate")
-            }
-        }, 550);
-
-        setTimeout(() => {
-            if(introImg.current){
-                introH1.current.classList.toggle("not-visible")
-            }
-        }, 1250);
-        setTimeout(() => {
-            if(introImg.current){
-                introH1.current.classList.toggle("not-visible")
-            }
-        }, 1330);
-        setTimeout(() => {
-            if(introImg.current){
-                introH1.current.classList.toggle("not-visible")
-            }
-        }, 1410);
-        setTimeout(() => {
-            if(introImg.current){
-                introH1.current.classList.toggle("not-visible")
-            }
-        }, 1490);
-
-        setTimeout(() => {
-            if(introImg.current){
-                introWrapper.current.classList.add("disolve")
-            }
-        }, 2250);
-        
-        setTimeout(() => {
-            setIntro(false)
-        }, 4250);
-    }
-
     //USEEFFECT
     useEffect(() => {
         setIntro(true)
-        closeIntro()
     }, [location]);
 
     return(
