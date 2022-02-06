@@ -7,6 +7,8 @@ import logo2 from "../assets/images/logo2.png"
 //COMPONENTS
 import CryptoTable from '../components/CryptoTable';
 import FilterTable from '../components/FilterTable';
+import SlideText from "../components/SlideText";
+import Menu from "../components/Menu";
 
 //STYLES
 import GlobalStyles from '../styles/GlobalStyles';
@@ -14,7 +16,7 @@ import GlobalStyles from '../styles/GlobalStyles';
 const ContentWrapper = styled.div`
     width: 100%;
     min-height: 100vh;
-    padding: 15px;
+    padding: 15px 0;
     display: flex;
     justify-content: space-between;
 
@@ -231,12 +233,14 @@ const HomePage = ({history, location}) =>{
                     <h1 ref={introH1}>Crypto List</h1>
                 </IntroWrapper>
             )}
+            <Menu/>
+            <SlideText />
             <ContentWrapper>
                 <div className="filter-box">
                     <FilterTable />
                 </div>
                 <div className="crypto-box">
-                    <HeaderWrapper>
+                    {/* <HeaderWrapper>
                         <SearchBox placeholder="Search a Coin" ref={searchBoxRef}/>
                         <CurrencyBox ref={currencyRef} onChange={changeCurrency}>
                             <option value="">USD</option>
@@ -244,7 +248,7 @@ const HomePage = ({history, location}) =>{
                             <option value="">JPY</option>
                             <option value="">GBP</option>
                         </CurrencyBox>
-                    </HeaderWrapper>
+                    </HeaderWrapper> */}
                     <CryptoTable currency={currency} searchBox={searchBoxRef} history={history} tiny={true} tableFooter={true} location={location}/>
                 </div>
             </ContentWrapper>

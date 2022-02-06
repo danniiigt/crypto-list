@@ -249,7 +249,7 @@ const CryptoTable = ({currency, searchBox, history, noHeader, tiny, tableFooter,
         const data = await response.json()
         formatNumbers(data)
 
-        if(searchBox){
+        if(searchBox.current){
             if(searchBox.current.value !== ""){
                 const searchedCoins = []
     
