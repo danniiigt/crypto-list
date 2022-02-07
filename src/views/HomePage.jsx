@@ -234,7 +234,6 @@ const HomePage = ({history, location}) =>{
                 </IntroWrapper>
             )}
             <Menu/>
-            <SlideText />
             <ContentWrapper>
                 <div className="filter-box">
                     <FilterTable />

@@ -38,7 +38,7 @@ const SlideWrapper = styled.div`
     }
 
     .sub-container{
-        display: flex;
+        display: ${({slideView}) => slideView ? "flex" : "none"};
         width: 100%;
         height: 100%;
         text-align: left;
@@ -64,10 +64,10 @@ const SlideWrapper = styled.div`
     }
 `
 
-const Menu = () => {
+const Menu = ({slideView}) => {
     return (
         <>
-            <SlideWrapper>
+            <SlideWrapper slideView={slideView}>
                 <div className="container">
                     <div className="sub-container">
                         <h1>Cryptos:<span>17.344</span></h1>
