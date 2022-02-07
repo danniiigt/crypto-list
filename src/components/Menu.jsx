@@ -54,7 +54,7 @@ const SearchView = styled.div`
             padding: 5px 15px;
             outline: none;
             color: white;
-
+            font-size: 14px;
         }
 
         button{
@@ -104,11 +104,11 @@ const SearchView = styled.div`
                 font-weight: 500px;
                 font-family 'Inter';
                 width: 70%;
-                margin-right: 10px;
 
                 span{
                     color: gray;
                     font-weight: 300;
+                    margin-left: 10px;
                 }
             }
 
