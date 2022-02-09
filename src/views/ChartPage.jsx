@@ -75,7 +75,6 @@ const ChartPage = ({history, location}) =>{
 
     //PAGE TITLE
     document.title = `${location.state.cryptoName} - Crypto App`
-    console.log(location.state)
     return(
         <>  
             {/* <BackHome> */}

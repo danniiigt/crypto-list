@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
 import {Link} from "react-router-dom";
+import {generate as id} from "shortid"
 
 import logo3 from "../assets/images/logo3.png"
 import SlideText from "./SlideText"
@@ -145,7 +146,6 @@ const Menu = ({history, location}) => {
     }
 
     const showSearchView = () => {
-        console.log("hola");
         
         if(searchView == false) {
             setSearchView(true)
@@ -160,7 +160,6 @@ const Menu = ({history, location}) => {
         const res = await fetch(url)
         const data = await res.json()
 
-        console.log(data)
         setCryptoTrend(data.coins)
 
     }
@@ -169,7 +168,6 @@ const Menu = ({history, location}) => {
         const res = await fetch(url)
         const data = await res.json()
 
-        console.log(data)
         setCryptoSearch(data.coins);
     }
 
@@ -208,12 +206,12 @@ const Menu = ({history, location}) => {
                 <div className="trend-box">
                     <header>
                         <h1>Trending</h1>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16px" width="16px" viewBox="0 0 24 24" color="#FF775F" class="sc-16r8icm-0 hAMgar"><path d="M17.0881 9.42254C16.4368 8.90717 15.8155 8.35512 15.3012 7.71336C12.3755 4.06357 13.8912 1 13.8912 1C8.46026 3.18334 7.22337 6.64895 7.16462 9.22981L7.1675 9.2572C7.1675 9.2572 7.21498 10.7365 7.90791 12.3625C8.12481 12.8713 7.88299 13.4666 7.33195 13.6199C6.87638 13.7465 6.40822 13.5317 6.21571 13.1314C5.90413 12.4831 5.49262 11.4521 5.6109 10.7249C4.75064 11.817 4.1815 13.1452 4.03542 14.6184C3.65092 18.4924 6.43759 22.0879 10.4208 22.8488C14.9906 23.7217 19.3121 20.7182 19.9269 16.3623C20.3117 13.6367 19.1498 11.0538 17.0881 9.42254ZM14.3578 17.7393C14.3289 17.776 13.5893 18.6597 12.3501 18.7517C12.2829 18.7547 12.2124 18.7577 12.1452 18.7577C11.2902 18.7577 10.4226 18.3682 9.56103 17.5951L9.37219 17.4262L9.61243 17.3372C9.62843 17.3312 11.2742 16.7236 11.6778 15.4077C11.8155 14.9629 11.7707 14.4566 11.553 13.9842C11.2905 13.4075 10.7845 11.9564 11.7453 10.9041L11.9309 10.7015L12.0206 10.9561C12.0238 10.9714 12.6034 12.5911 13.9741 13.4379C14.3871 13.6957 14.6977 14.0086 14.8931 14.3644C15.2959 15.1132 15.533 16.3065 14.3578 17.7393Z"></path></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" height="16px" width="16px" viewBox="0 0 24 24" color="#FF775F" className="sc-16r8icm-0 hAMgar"><path d="M17.0881 9.42254C16.4368 8.90717 15.8155 8.35512 15.3012 7.71336C12.3755 4.06357 13.8912 1 13.8912 1C8.46026 3.18334 7.22337 6.64895 7.16462 9.22981L7.1675 9.2572C7.1675 9.2572 7.21498 10.7365 7.90791 12.3625C8.12481 12.8713 7.88299 13.4666 7.33195 13.6199C6.87638 13.7465 6.40822 13.5317 6.21571 13.1314C5.90413 12.4831 5.49262 11.4521 5.6109 10.7249C4.75064 11.817 4.1815 13.1452 4.03542 14.6184C3.65092 18.4924 6.43759 22.0879 10.4208 22.8488C14.9906 23.7217 19.3121 20.7182 19.9269 16.3623C20.3117 13.6367 19.1498 11.0538 17.0881 9.42254ZM14.3578 17.7393C14.3289 17.776 13.5893 18.6597 12.3501 18.7517C12.2829 18.7547 12.2124 18.7577 12.1452 18.7577C11.2902 18.7577 10.4226 18.3682 9.56103 17.5951L9.37219 17.4262L9.61243 17.3372C9.62843 17.3312 11.2742 16.7236 11.6778 15.4077C11.8155 14.9629 11.7707 14.4566 11.553 13.9842C11.2905 13.4075 10.7845 11.9564 11.7453 10.9041L11.9309 10.7015L12.0206 10.9561C12.0238 10.9714 12.6034 12.5911 13.9741 13.4379C14.3871 13.6957 14.6977 14.0086 14.8931 14.3644C15.2959 15.1132 15.533 16.3065 14.3578 17.7393Z"></path></svg>
                     </header>
 
                     <div className="cryptos-box">   
                         {cryptoSearch.length == 0 && cryptoTrend.map((crypto) => (
-                            <div className="crypto-item" onClick={() => cryptoLink(crypto.item.name, crypto.item.id)}>
+                            <div className="crypto-item" onClick={() => cryptoLink(crypto.item.name, crypto.item.id)} key={id()}>
                                 <img src={crypto.item.small} alt="" />
                                 <h1>{crypto.item.name} <span>{crypto.item.symbol}</span> </h1>
                                 <label htmlFor="">#{crypto.item.market_cap_rank}</label>
@@ -221,7 +219,7 @@ const Menu = ({history, location}) => {
                         ))}
 
                         {cryptoSearch.length > 0 && cryptoSearch.map((crypto) => (
-                            <div className="crypto-item" onClick={() => cryptoLink(crypto.name, crypto.id)}>
+                            <div className="crypto-item" onClick={() => cryptoLink(crypto.name, crypto.id)} key={id()}>
                                 <img src={crypto.thumb} alt="crypto-logo" />
                                 <h1>{crypto.name}<span>{crypto.symbol}</span></h1>
                                 <label htmlFor="">#{crypto.market_cap_rank}</label>
