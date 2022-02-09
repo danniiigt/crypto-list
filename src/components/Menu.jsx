@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import styled from 'styled-components';
+import {Link} from "react-router-dom";
 
 import logo3 from "../assets/images/logo3.png"
 import SlideText from "./SlideText"
@@ -27,7 +28,8 @@ const MenuWrapper = styled.div`
 
 const SearchView = styled.div`
     position: absolute;
-    height: 100vh;
+    z-index: 10;
+    min-height: 100vh;
     width: 100vw;
     display: ${({searchView}) => searchView ? "block" : "none"};
     background-color: #282c34;
@@ -119,17 +121,27 @@ const SearchView = styled.div`
     }
 `
 
-const Menu = () => {
+const Menu = ({history, location}) => {
 
     const [cryptoTrend, setCryptoTrend] = useState([])
+    const [cryptoSearch, setCryptoSearch] = useState([])
     const [searchView, setSearchView] = useState(false)
     const [slideView, setSlideView] = useState(false)
 
+    const inputRef = useRef()
+
 
     const showSlideText = () => {
-        setTimeout(() => {
+        //NO ESPERARÁ LOS 2.45 SEGUNDOS SI EL PATHNAME ES "/(CUALQUIER COSA)" POR ENDE SOLO LO HARÁ EN "/" PARA LA INTRO
+        //HABRÁ QUE FIXEARLO CUANDO SE HAGA EL CAMBIO DE CHARTPAGE A HOMEPAGE Y NO QUERRAMOS MOSTRAR LA INTRO
+
+        if(location.pathname == "/") {
+            setTimeout(() => {
+                setSlideView(true)
+            }, 2450);
+        } else {
             setSlideView(true)
-        }, 2300);
+        }
     }
 
     const showSearchView = () => {
@@ -153,6 +165,29 @@ const Menu = () => {
 
     }
 
+    const requestCryptoSearch = async (url) => {
+        const res = await fetch(url)
+        const data = await res.json()
+
+        console.log(data)
+        setCryptoSearch(data.coins);
+    }
+
+    const handleCryptoSearch = () => {
+        if(inputRef.current.value.length >= 2) {
+            requestCryptoSearch(`https://api.coingecko.com/api/v3/search?query=${inputRef.current.value.trim()}`)
+        } else if(inputRef.current.value.length == 0) {
+            setCryptoSearch([])
+        }
+    }
+
+    const cryptoLink = (cryptoName, cryptoID) =>{
+        if(location.pathname != `/chart/${cryptoName.toLowerCase()}`){
+            history.push(`/chart/${cryptoName.toLowerCase()}`, {cryptoID, cryptoName})
+            showSearchView()
+        }
+    } 
+
     useEffect(() => {
         getTrendCrypto("https://api.coingecko.com/api/v3/search/trending")
         showSlideText()
@@ -166,7 +201,7 @@ const Menu = () => {
                         <path d="M16.4153 16.4153L20 20M18.5455 11.2727C18.5455 15.2893 15.2894 18.5454 11.2728 18.5454C7.25612 18.5454 4 15.2893 4 11.2727C4 7.2561 7.25612 4 11.2728 4C15.2894 4 18.5455 7.2561 18.5455 11.2727Z" stroke="currentColor" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round">
                         </path>
                     </svg>
-                    <input type="text" placeholder="What are you looking for?" />
+                    <input type="text" placeholder="What are you looking for?" onChange={handleCryptoSearch} ref={inputRef}/>
                     <button onClick={showSearchView}>Cancel</button>
                 </header>
 
@@ -177,18 +212,30 @@ const Menu = () => {
                     </header>
 
                     <div className="cryptos-box">   
-                        {cryptoTrend.map((crypto) => (
-                            <div className="crypto-item">
+                        {cryptoSearch.length == 0 && cryptoTrend.map((crypto) => (
+                            <div className="crypto-item" onClick={() => cryptoLink(crypto.item.name, crypto.item.id)}>
                                 <img src={crypto.item.small} alt="" />
                                 <h1>{crypto.item.name} <span>{crypto.item.symbol}</span> </h1>
                                 <label htmlFor="">#{crypto.item.market_cap_rank}</label>
                             </div>
                         ))}
+
+                        {cryptoSearch.length > 0 && cryptoSearch.map((crypto) => (
+                            <div className="crypto-item" onClick={() => cryptoLink(crypto.name, crypto.id)}>
+                                <img src={crypto.thumb} alt="crypto-logo" />
+                                <h1>{crypto.name}<span>{crypto.symbol}</span></h1>
+                                <label htmlFor="">#{crypto.market_cap_rank}</label>
+                            </div>
+                        ))}
                     </div>
+
+                    
                 </div>
             </SearchView>
             <MenuWrapper>
-                <img src={logo3} alt="logo" />
+                <Link to="/">
+                    <img src={logo3} alt="logo" />
+                </Link>
 
                 <div className="buttons-box">
                     <svg xmlns="http://www.w3.org/2000/svg" onClick={showSearchView} fill="none" height="24px" width="24px" viewBox="0 0 24 24" className="sc-16r8icm-0 jZwKai">

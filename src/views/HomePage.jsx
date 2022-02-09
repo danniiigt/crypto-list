@@ -214,7 +214,7 @@ const HomePage = ({history, location}) =>{
         
         setTimeout(() => {
             setIntro(false)
-        }, 4250);
+        }, 2750);
     }
 
     useEffect(() => {
@@ -233,7 +233,7 @@ const HomePage = ({history, location}) =>{
                     <h1 ref={introH1}>Crypto List</h1>
                 </IntroWrapper>
             )}
-            <Menu/>
+            <Menu history={history} location={location}/>
             <ContentWrapper>
                 <div className="filter-box">
                     <FilterTable />

@@ -21,11 +21,11 @@ const ChartWrapper = styled.div`
 
 const ChartLegend = styled.div`
     position: absolute;
-    top: 0;
+    z-index: 1;
+    top: 110px;
     padding: 0px 5px;
     background-color: #3c414d;
     width: 100%;
-    border-radius: 0 0 100px 100px;
 
     h1{
         font-size: 0.8em;

@@ -10,6 +10,7 @@ import CryptoStats from '../components/CryptoStats';
 import { Link } from 'react-router-dom';
 import Chart from '../components/Chart';
 import CryptoLinks from '../components/CryptoLinks';
+import Menu from '../components/Menu';
 // import Intro from '../components/Intro';
 
 //STYLES
@@ -18,6 +19,8 @@ const ChartWrapper = styled.div`
     width: 100%;
     display: block;
     border-bottom: 5px solid #47484b;
+    padding-top: 15px;
+    background-color: #282c34;
 `
 
 const CryptoTableWrapper = styled.div`
@@ -72,11 +75,13 @@ const ChartPage = ({history, location}) =>{
 
     //PAGE TITLE
     document.title = `${location.state.cryptoName} - Crypto App`
+    console.log(location.state)
     return(
         <>  
             {/* <BackHome> */}
                 {/* <StyledLink to="/">← go back home</StyledLink> */}
             {/* </BackHome> */}
+            <Menu location={location} history={history} />
             <ChartWrapper>
                 <Chart location={location}/>
             </ChartWrapper>
